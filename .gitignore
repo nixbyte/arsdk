@@ -1,0 +1,17 @@
+*.iml
+.gradle
+buildSrc/gradle.properties
+.idea
+.DS_Store
+build
+captures
+.externalNativeBuild
+.cxx
+local.properties
+xcuserdata
+iOSApp/Pods/*
+*.podspec
+keystore.jks
+private_key.pepk
+androidApp/release
+keystore.properties
