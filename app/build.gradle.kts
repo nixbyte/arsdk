@@ -52,5 +52,5 @@ dependencies {
     implementation("androidx.multidex:multidex:2.0.1")
 
 //    implementation(project(":app:sdk"))
-    implementation(files("sdk/build/outputs/aar/sdk-debug.aar"))
+    implementation(files("libs/sdk-debug.aar"))
 }
