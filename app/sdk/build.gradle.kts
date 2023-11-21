@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.ir.backend.js.compile
-
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -11,8 +9,8 @@ android {
 
     defaultConfig {
         minSdk = 24
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled = true
         consumerProguardFiles("consumer-rules.pro")
     }
 
@@ -45,4 +43,5 @@ dependencies {
     // Import the GPU delegate plugin Library for GPU inference
     implementation("org.tensorflow:tensorflow-lite-gpu-delegate-plugin:0.4.0")
     implementation("org.tensorflow:tensorflow-lite-gpu:2.9.0")
+    implementation("androidx.multidex:multidex:2.0.1")
 }

@@ -1,16 +1,18 @@
 package pro.gid.sdk
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.multidex.MultiDex
 import com.google.ar.core.Config
 import com.google.ar.core.Session
+import com.google.ar.core.exceptions.UnavailableUserDeclinedInstallationException
 import com.google.ar.core.exceptions.CameraNotAvailableException
 import com.google.ar.core.exceptions.UnavailableApkTooOldException
 import com.google.ar.core.exceptions.UnavailableDeviceNotCompatibleException
 import com.google.ar.core.exceptions.UnavailableSdkTooOldException
-import com.google.ar.core.exceptions.UnavailableUserDeclinedInstallationException
 import com.nixbyte.kmm_architecture.android.common.helpers.ARCoreSessionLifecycleHelper
 import org.tensorflow.lite.task.vision.detector.Detection
 import pro.gid.sdk.common.helpers.CameraPermissionHelper
@@ -38,47 +40,52 @@ class LahtaActivity : AppCompatActivity(), ObjectDetectorHelper.DetectorListener
         InstantPlacementSettings()
     val depthSettings = DepthSettings()
 
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(base)
+        MultiDex.install(this)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        setContentView(R.layout.activity_text)
         // Setup ARCore session lifecycle helper and configuration.
-        arCoreSessionHelper = ARCoreSessionLifecycleHelper(this)
-        // If Session creation or Session.resume() fails, display a message and log detailed
-        // information.
-        arCoreSessionHelper.exceptionCallback =
-            { exception ->
-                val message =
-                    when (exception) {
-                        is UnavailableUserDeclinedInstallationException ->
-                            "Please install Google Play Services for AR"
-                        is UnavailableApkTooOldException -> "Please update ARCore"
-                        is UnavailableSdkTooOldException -> "Please update this app"
-                        is UnavailableDeviceNotCompatibleException -> "This device does not support AR"
-                        is CameraNotAvailableException -> "Camera not available. Try restarting the app."
-                        else -> "Failed to create AR session: $exception"
-                    }
-                Log.e(TAG, "ARCore threw an exception", exception)
-                view.snackbarHelper.showError(this, message)
-            }
-
-        // Configure session features, including: Lighting Estimation, Depth mode, Instant Placement.
-        arCoreSessionHelper.beforeSessionResume = ::configureSession
-        lifecycle.addObserver(arCoreSessionHelper)
-
-        // Set up the Hello AR renderer.
-        renderer = HelloArRenderer(this)
-        lifecycle.addObserver(renderer)
-
-        // Set up Hello AR UI.
-        view = HelloArView(this)
-        lifecycle.addObserver(view)
-        setContentView(view.root)
-
-        // Sets up an example renderer using our HelloARRenderer.
-        SampleRender(view.surfaceView, renderer, assets)
-
-        depthSettings.onCreate(this)
-        instantPlacementSettings.onCreate(this)
+//        arCoreSessionHelper = ARCoreSessionLifecycleHelper(this)
+//        // If Session creation or Session.resume() fails, display a message and log detailed
+//        // information.
+//        arCoreSessionHelper.exceptionCallback =
+//            { exception ->
+//                val message =
+//                    when (exception) {
+//                        is UnavailableUserDeclinedInstallationException ->
+//                            "Please install Google Play Services for AR"
+//                        is UnavailableApkTooOldException -> "Please update ARCore"
+//                        is UnavailableSdkTooOldException -> "Please update this app"
+//                        is UnavailableDeviceNotCompatibleException -> "This device does not support AR"
+//                        is CameraNotAvailableException -> "Camera not available. Try restarting the app."
+//                        else -> "Failed to create AR session: $exception"
+//                    }
+//                Log.e(TAG, "ARCore threw an exception", exception)
+//                view.snackbarHelper.showError(this, message)
+//            }
+//
+//        // Configure session features, including: Lighting Estimation, Depth mode, Instant Placement.
+//        arCoreSessionHelper.beforeSessionResume = ::configureSession
+//        lifecycle.addObserver(arCoreSessionHelper)
+//
+//        // Set up the Hello AR renderer.
+//        renderer = HelloArRenderer(this)
+//        lifecycle.addObserver(renderer)
+//
+//        // Set up Hello AR UI.
+//        view = HelloArView(this)
+//        lifecycle.addObserver(view)
+//        setContentView(view.root)
+//
+//        // Sets up an example renderer using our HelloARRenderer.
+//        SampleRender(view.surfaceView, renderer, assets)
+//
+//        depthSettings.onCreate(this)
+//        instantPlacementSettings.onCreate(this)
     }
 
     // Configure the session, using Lighting Estimation, and Depth mode.

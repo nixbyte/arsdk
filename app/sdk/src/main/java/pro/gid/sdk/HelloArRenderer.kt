@@ -185,7 +185,7 @@ class HelloArRenderer(val activity: LahtaActivity) :
 
       val buffer: ByteBuffer =
         ByteBuffer.allocateDirect(dfgResolution * dfgResolution * dfgChannels * halfFloatSize)
-      activity.assets.open("models/dfg.raw").use { it.read(buffer.array()) }
+      activity.assets.open("dfg.raw").use { it.read(buffer.array()) }
 
       // SampleRender abstraction leaks here.
       GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, dfgTexture.textureId)
@@ -207,8 +207,8 @@ class HelloArRenderer(val activity: LahtaActivity) :
       pointCloudShader =
         Shader.createFromAssets(
           render,
-          "shaders/point_cloud.vert",
-          "shaders/point_cloud.frag",
+          "point_cloud.vert",
+          "point_cloud.frag",
           /*defines=*/ null
         )
           .setVec4("u_Color", floatArrayOf(31.0f / 255.0f, 188.0f / 255.0f, 210.0f / 255.0f, 1.0f))
@@ -225,7 +225,7 @@ class HelloArRenderer(val activity: LahtaActivity) :
       virtualObjectAlbedoTexture =
         Texture.createFromAsset(
           render,
-          "models/pawn_albedo.png",
+          "pawn_albedo.png",
           Texture.WrapMode.CLAMP_TO_EDGE,
           Texture.ColorFormat.SRGB
         )
@@ -233,7 +233,7 @@ class HelloArRenderer(val activity: LahtaActivity) :
       virtualObjectAlbedoInstantPlacementTexture =
         Texture.createFromAsset(
           render,
-          "models/pawn_albedo_instant_placement.png",
+          "pawn_albedo_instant_placement.png",
           Texture.WrapMode.CLAMP_TO_EDGE,
           Texture.ColorFormat.SRGB
         )
@@ -241,16 +241,16 @@ class HelloArRenderer(val activity: LahtaActivity) :
       val virtualObjectPbrTexture =
         Texture.createFromAsset(
           render,
-          "models/pawn_roughness_metallic_ao.png",
+          "pawn_roughness_metallic_ao.png",
           Texture.WrapMode.CLAMP_TO_EDGE,
           Texture.ColorFormat.LINEAR
         )
-      virtualObjectMesh = Mesh.createFromAsset(render, "models/pawn.obj")
+      virtualObjectMesh = Mesh.createFromAsset(render, "pawn.obj")
       virtualObjectShader =
         Shader.createFromAssets(
           render,
-          "shaders/environmental_hdr.vert",
-          "shaders/environmental_hdr.frag",
+          "environmental_hdr.vert",
+          "environmental_hdr.frag",
           mapOf("NUMBER_OF_MIPMAP_LEVELS" to cubemapFilter.numberOfMipmapLevels.toString())
         )
           .setTexture("u_AlbedoTexture", virtualObjectAlbedoTexture)

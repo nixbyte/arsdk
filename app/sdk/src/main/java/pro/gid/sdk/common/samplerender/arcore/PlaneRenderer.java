@@ -53,9 +53,9 @@ public class PlaneRenderer {
   private static final String TAG = PlaneRenderer.class.getSimpleName();
 
   // Shader names.
-  private static final String VERTEX_SHADER_NAME = "shaders/plane.vert";
-  private static final String FRAGMENT_SHADER_NAME = "shaders/plane.frag";
-  private static final String TEXTURE_NAME = "models/trigrid.png";
+  private static final String VERTEX_SHADER_NAME = "plane.vert";
+  private static final String FRAGMENT_SHADER_NAME = "plane.frag";
+  private static final String TEXTURE_NAME = "trigrid.png";
 
   private static final int BYTES_PER_FLOAT = Float.SIZE / 8;
   private static final int BYTES_PER_INT = Integer.SIZE / 8;

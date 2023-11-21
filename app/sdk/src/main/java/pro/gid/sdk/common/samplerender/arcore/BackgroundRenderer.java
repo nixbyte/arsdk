@@ -130,14 +130,14 @@ public class BackgroundRenderer {
      depthColorPaletteTexture =
         Texture.createFromAsset(
             render,
-            "models/depth_color_palette.png",
+            "depth_color_palette.png",
             Texture.WrapMode.CLAMP_TO_EDGE,
             Texture.ColorFormat.LINEAR);
       backgroundShader =
           Shader.createFromAssets(
                   render,
-                  "shaders/background_show_depth_color_visualization.vert",
-                  "shaders/background_show_depth_color_visualization.frag",
+                  "background_show_depth_color_visualization.vert",
+                  "background_show_depth_color_visualization.frag",
                   /*defines=*/ null)
               .setTexture("u_CameraDepthTexture", cameraDepthTexture)
               .setTexture("u_ColorMap", depthColorPaletteTexture)
@@ -147,8 +147,8 @@ public class BackgroundRenderer {
       backgroundShader =
           Shader.createFromAssets(
                   render,
-                  "shaders/background_show_camera.vert",
-                  "shaders/background_show_camera.frag",
+                  "background_show_camera.vert",
+                  "background_show_camera.frag",
                   /*defines=*/ null)
               .setTexture("u_CameraColorTexture", cameraColorTexture)
               .setDepthTest(false)
@@ -172,7 +172,7 @@ public class BackgroundRenderer {
     HashMap<String, String> defines = new HashMap<>();
     defines.put("USE_OCCLUSION", useOcclusion ? "1" : "0");
     occlusionShader =
-        Shader.createFromAssets(render, "shaders/occlusion.vert", "shaders/occlusion.frag", defines)
+        Shader.createFromAssets(render, "occlusion.vert", "occlusion.frag", defines)
             .setDepthTest(false)
             .setDepthWrite(false)
             .setBlend(Shader.BlendFactor.SRC_ALPHA, Shader.BlendFactor.ONE_MINUS_SRC_ALPHA);

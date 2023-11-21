@@ -22,6 +22,7 @@
     android:allowBackup="true"
     android:theme="@style/Theme.AppCompat.Light"
     android:usesCleartextTraffic="false"
+    android:name="androidx.multidex.MultiDexApplication"
     tools:ignore="GoogleAppIndexingWarning">
 
     <activity

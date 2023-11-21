@@ -13,6 +13,7 @@ android {
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
+        multiDexEnabled = true
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -48,6 +49,8 @@ dependencies {
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.appcompat:appcompat:1.1.0")
+    implementation("androidx.multidex:multidex:2.0.1")
 
-    implementation(project(":app:sdk"))
+//    implementation(project(":app:sdk"))
+    implementation(files("sdk/build/outputs/aar/sdk-debug.aar"))
 }
